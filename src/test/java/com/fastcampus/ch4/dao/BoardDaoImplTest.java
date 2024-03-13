@@ -1,6 +1,7 @@
 package com.fastcampus.ch4.dao;
 
 import com.fastcampus.ch4.domain.BoardDto;
+import com.fastcampus.ch4.domain.dao.BoardDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,20 @@ public class BoardDaoImplTest {
 
     @Test
     public void select() throws Exception {
-        assertTrue(boardDao!=null);
+        assertTrue(boardDao != null);
         System.out.println("boardDao = " + boardDao);
-        BoardDto  boardDto = boardDao.select(1);
+        BoardDto boardDto = boardDao.select(1);
         System.out.println("boardDto = " + boardDto);
         assertTrue(boardDto.getBno().equals(1));
     }
-}
+
+    @Test
+    public void deleteAllTest() throws Exception{
+        boardDao.deleteAll();
+        assertTrue(boardDao.count()==0);
+    }
+
+//   @Test
+//   public void delete() throws Exception{
+//       boardDao.delete(4, "헬창");
+//}
