@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
+import com.fastcampus.ch4.dao.UserDao;
 import com.fastcampus.ch4.domain.*;
-import com.fastcampus.ch4.domain.dao.UserDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

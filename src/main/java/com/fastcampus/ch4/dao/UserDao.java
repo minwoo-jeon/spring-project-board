@@ -1,4 +1,4 @@
-package com.fastcampus.ch4.domain.dao;
+package com.fastcampus.ch4.dao;
 
 import com.fastcampus.ch4.domain.*;
 
