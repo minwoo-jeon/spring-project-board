@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +25,43 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
+
+    @PostMapping("/remove")
+    public String remove(Integer bno, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr ) {
+       String writer = (String) session.getAttribute("id");
+        try {
+            m.addAttribute("page", page);
+            m.addAttribute("pageSize",pageSize);
+
+            int rowCnt =  boardService.remove(bno,writer);
+
+            if(rowCnt!=1)
+                throw new Exception("board renove error");
+
+
+              rattr.addFlashAttribute("msg","DEL_OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","DEL_ERR");
+        }
+
+
+        return "redirect:/board/list";  //삭제되고 나서는 다시
+    }
+
+
+    @GetMapping("/read")
+    public String read(Integer bno,Integer page,Integer pageSize,Model m){
+        try {
+            BoardDto boardDto = boardService.read(bno);
+            m.addAttribute(boardDto);
+            m.addAttribute("page",page);
+            m.addAttribute("pageSize",pageSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "board";
+    }
 
 
     @GetMapping("/list")
@@ -44,6 +83,9 @@ public class BoardController {
             List<BoardDto> list =  boardService.getPage(map);
             m.addAttribute("list",list);
             m.addAttribute("ph", pageHandler);
+            m.addAttribute("page",page);
+            m.addAttribute("pageSize",pageSize);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
