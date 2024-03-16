@@ -24,7 +24,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int write(BoardDto boardDto) throws Exception {
-        return boardDao.insert(boardDto);
+        //        throw new Exception("TEST");
+               return boardDao.insert(boardDto);
     }
 
     @Override

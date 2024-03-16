@@ -25,10 +25,65 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
+    @GetMapping("/write")
+    public String write(Model m){
+        m.addAttribute("mode","new");
+        return "board"; //읽기와 쓰기에 사용 , 쓰기에 사용할댸는  mode = new
+    }
+
+    @PostMapping("/write")
+    public String write(BoardDto boardDto,Model m ,HttpSession session,RedirectAttributes rattr){
+        String writer = (String)session.getAttribute("id");
+        boardDto.setWriter(writer);
+
+        try {
+         int rowCnt=  boardService.write(boardDto);
+
+         if(rowCnt!=1)
+             throw new Exception("Write failed");
+
+         rattr.addFlashAttribute("msg","WRT_OK");
+
+            return "redirect:/board/list";
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute("boardDto", boardDto);
+            m.addAttribute("msg", "WRT_ERR");
+            return  "board";
+        }
+    }
+
+    @PostMapping("/modify")
+    public String modify(BoardDto boardDto,Model m ,HttpSession session,RedirectAttributes rattr){
+        String writer = (String)session.getAttribute("id");
+        boardDto.setWriter(writer);
+
+        try {
+            int rowCnt=  boardService.modify(boardDto);
+
+            if(rowCnt!=1)
+                throw new Exception("Modify failed");
+
+            rattr.addFlashAttribute("msg","MOD_OK");
+
+            return "redirect:/board/list";
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute("boardDto", boardDto);
+            m.addAttribute("msg", "MOD_ERR");
+            return  "board";
+        }
+    }
+
+
+
+
+
 
     @PostMapping("/remove")
     public String remove(Integer bno, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr ) {
        String writer = (String) session.getAttribute("id");
+
         try {
             m.addAttribute("page", page);
             m.addAttribute("pageSize",pageSize);
@@ -44,7 +99,6 @@ public class BoardController {
             e.printStackTrace();
             rattr.addFlashAttribute("msg","DEL_ERR");
         }
-
 
         return "redirect:/board/list";  //삭제되고 나서는 다시
     }
