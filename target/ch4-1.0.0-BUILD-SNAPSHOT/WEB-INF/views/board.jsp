@@ -30,7 +30,7 @@
         <input type="hidden" name="bno" value="${boardDto.bno}">
         <input type="text" name="title" value="${boardDto.title}" ${mode=="new"? '': 'readonly="readonly"'}>
         <textarea name="content" id="" cols="30" rows="10" ${mode=="new"? '': 'readonly="readonly"'}>${boardDto.content}</textarea>
-        <button type="button" id="writeBtn" class="btn">등록</button>
+        <button type="button" id="writeBtn" class="btn">글쓰기</button>
         <button type="button" id="modifyBtn" class="btn">수정</button>
         <button type="button" id="removeBtn" class="btn">삭제</button>
         <button type="button" id="listBtn" class="btn">목록</button>
@@ -49,7 +49,7 @@
             form.submit();
         });
 
-        $('#modifyBtn').on("click",function (){
+            $('#modifyBtn').on("click",function (){
             //1. 읽기 상태이면 수정 사태로 변경한다.
             let form = $('#form');
             let isReadOnly = $("input[name=title]").attr('readonly');
@@ -63,8 +63,7 @@
             }
 
             //2. 수정 상태이면, 수정된 내용을 서버로 전송
-
-            form.attr("action", "<c:url value='/board/modify'/>");
+            form.attr("action", "<c:url value='/board/modify'/>?page=${page}&pageSize=${pageSize}");
             form.attr("method","post");
             form.submit();
         });

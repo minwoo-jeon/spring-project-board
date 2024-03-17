@@ -49,7 +49,7 @@
             form.submit();
         });
 
-        $('#modifyBtn').on("click",function (){
+            $('#modifyBtn').on("click",function (){
             //1. 읽기 상태이면 수정 사태로 변경한다.
             let form = $('#form');
             let isReadOnly = $("input[name=title]").attr('readonly');
@@ -63,8 +63,7 @@
             }
 
             //2. 수정 상태이면, 수정된 내용을 서버로 전송
-
-            form.attr("action", "<c:url value='/board/modify'/>");
+            form.attr("action", "<c:url value='/board/modify'/>?page=${page}&pageSize=${pageSize}");
             form.attr("method","post");
             form.submit();
         });

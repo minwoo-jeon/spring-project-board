@@ -54,22 +54,31 @@ public class BoardController {
     }
 
     @PostMapping("/modify")
-    public String modify(BoardDto boardDto,Model m ,HttpSession session,RedirectAttributes rattr){
+    public String modify(BoardDto boardDto,Model m ,HttpSession session,RedirectAttributes rattr,Integer page, Integer pageSize){
+
         String writer = (String)session.getAttribute("id");
         boardDto.setWriter(writer);
 
         try {
+
             int rowCnt=  boardService.modify(boardDto);
 
-            if(rowCnt!=1)
+            if(rowCnt!=1) {
                 throw new Exception("Modify failed");
+            }
 
+            rattr.addAttribute("page",page);
+            rattr.addAttribute("pageSize",pageSize);
+            System.out.println("page"+page);
+            System.out.println("pageSize"+pageSize);
             rattr.addFlashAttribute("msg","MOD_OK");
 
             return "redirect:/board/list";
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("boardDto", boardDto);
+            m.addAttribute("page", page);
+            m.addAttribute("pageSize", pageSize);
             m.addAttribute("msg", "MOD_ERR");
             return  "board";
         }
