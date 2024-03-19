@@ -24,8 +24,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int write(BoardDto boardDto) throws Exception {
-        //        throw new Exception("TEST");
-               return boardDao.insert(boardDto);
+        return boardDao.insert(boardDto);
     }
 
     @Override
@@ -51,13 +50,13 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.update(boardDto);
     }
 
-//    @Override
-//    public int getSearchResultCnt(SearchCondition sc) throws Exception {
-//        return boardDao.searchResultCnt(sc);
-//    }
-//
-//    @Override
-//    public List<BoardDto> getSearchResultPage(SearchCondition sc) throws Exception {
-//        return boardDao.searchSelectPage(sc);
-//    }
+    @Override
+    public int getSearchResultCnt(SearchCondition sc) throws Exception {
+        return boardDao.searchResultCnt(sc);
+    }
+
+    @Override
+    public List<BoardDto> getSearchResultPage(SearchCondition sc) throws Exception {
+        return boardDao.searchSelectPage(sc);
+    }
 }
