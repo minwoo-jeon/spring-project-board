@@ -4,7 +4,7 @@ import org.springframework.web.util.*;
 
 public class PageHandler {
 
-//    rivate int pageSize = 10; // 한 페이지당 게시물 갯수
+//    private int pageSize = 10; // 한 페이지당 게시물 갯수
 //    private int page; // 현재 페이지
 //    private String  option;
 //    private String  keyword;

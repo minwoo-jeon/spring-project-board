@@ -29,7 +29,7 @@ public class BoardController {
                 throw new Exception("Modify failed.");
 
             rattr.addFlashAttribute("msg", "MOD_OK");
-            return "redirect:/board/list"+sc.getQueryString();
+            return "redirect:/board/list";
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute(boardDto);
@@ -73,7 +73,7 @@ public class BoardController {
         } catch (Exception e) {
             e.printStackTrace();
             rattr.addFlashAttribute("msg", "READ_ERR");
-            return "redirect:/board/list"+sc.getQueryString();
+            return "redirect:/board/list";
         }
 
         return "board";
@@ -93,7 +93,7 @@ public class BoardController {
         }
 
         rattr.addFlashAttribute("msg", msg);
-        return "redirect:/board/list"+sc.getQueryString();
+        return "redirect:/board/list";
     }
 
     @GetMapping("/list")

@@ -27,8 +27,9 @@ public class BoardDaoImplTest {
         }
 
         SearchCondition sc = new SearchCondition(1,10,"title2","T");
+
         List<BoardDto> list = boardDao.searchSelectPage(sc);
-//        System.out.println("list = " + list);
+        System.out.println("list = " + list);
         assertTrue(list.size()== 2); //1~20, 중에 title2, title20
     }
 

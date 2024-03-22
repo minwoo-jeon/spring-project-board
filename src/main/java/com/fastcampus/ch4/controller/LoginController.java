@@ -55,12 +55,12 @@ public class LoginController {
 
         if(rememberId) {
             //     1. 쿠키를 생성
-            Cookie cookie = new Cookie("id", id); // ctrl+shift+o 자동 import
+            Cookie cookie = new Cookie("id", id);
 //		       2. 응답에 저장
             response.addCookie(cookie);
         } else {
             // 1. 쿠키를 삭제
-            Cookie cookie = new Cookie("id", id); // ctrl+shift+o 자동 import
+            Cookie cookie = new Cookie("id", id);
             cookie.setMaxAge(0); // 쿠키를 삭제
 //		       2. 응답에 저장
             response.addCookie(cookie);

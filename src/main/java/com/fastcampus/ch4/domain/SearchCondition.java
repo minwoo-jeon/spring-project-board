@@ -2,32 +2,12 @@ package com.fastcampus.ch4.domain;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
-import static java.lang.Math.*;
-import static java.util.Objects.requireNonNullElse;
-
 public class SearchCondition {
     private Integer page = 1;
     private Integer pageSize = 10;
-    private String  option = "";
-    private String  keyword = "";
-    private Integer  offset=0;
-
-    public static final int MIN_PAGE_SIZE = 5;
-    public static final int DEFAULT_PAGE_SIZE = 10;
-    public static final int MAX_PAGE_SIZE = 50;
-
-    public SearchCondition(){}
-
-    public SearchCondition(Integer page, Integer pageSize) {
-        this(page, pageSize, "", "");
-    }
-
-    public SearchCondition(Integer page, Integer pageSize, String option, String keyword) {
-        this.page = page;
-        this.pageSize = pageSize;
-        this.option = option;
-        this.keyword = keyword;
-    }
+    private Integer offset = 0;
+    private String option = "";
+    private String keyword = "";
 
     public String getQueryString() {
         return getQueryString(page);
@@ -36,12 +16,24 @@ public class SearchCondition {
     public String getQueryString(Integer page) {
         // ?page=10&pageSize=10&option=A&keyword=title
         return UriComponentsBuilder.newInstance()
-                .queryParam("page",page)
+                .queryParam("page",     page)
                 .queryParam("pageSize", pageSize)
-                .queryParam("option",option)
-                .queryParam("keyword",keyword)
+                .queryParam("option",   option)
+                .queryParam("keyword",  keyword)
                 .build().toString();
     }
+
+
+    public SearchCondition(){}
+
+
+    public SearchCondition(Integer page, Integer pageSize, String option, String keyword) {
+        this.page = page;
+        this.pageSize = pageSize;
+        this.option = option;
+        this.keyword = keyword;
+    }
+
     public Integer getPage() {
         return page;
     }
@@ -55,10 +47,7 @@ public class SearchCondition {
     }
 
     public void setPageSize(Integer pageSize) {
-        this.pageSize = requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE);
-
-        // MIN_PAGE_SIZE <= pageSize <= MAX_PAGE_SIZE
-        this.pageSize = max(MIN_PAGE_SIZE, min(this.pageSize, MAX_PAGE_SIZE));
+        this.pageSize = pageSize;
     }
 
     public String getOption() {
@@ -78,16 +67,10 @@ public class SearchCondition {
     }
 
     public Integer getOffset() {
-        return (page-1)*pageSize;
+        return offset;
     }
 
-    @Override
-    public String toString() {
-        return "SearchCondition{" +
-                "page=" + page +
-                ", pageSize=" + pageSize +
-                ", option='" + option + '\'' +
-                ", keyword='" + keyword + '\'' +
-                '}';
+    public void setOffset(Integer offset) {
+        this.offset = offset;
     }
 }
