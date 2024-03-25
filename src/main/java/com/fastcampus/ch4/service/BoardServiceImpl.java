@@ -55,8 +55,7 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.searchResultCnt(sc);
     }
 
-    @Override
-    public List<BoardDto> getSearchResultPage(SearchCondition sc) throws Exception {
+    @Override   public List<BoardDto> getSearchResultPage(SearchCondition sc) throws Exception {
         return boardDao.searchSelectPage(sc);
     }
 }
